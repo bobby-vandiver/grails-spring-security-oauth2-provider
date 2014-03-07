@@ -97,17 +97,34 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'grails.plugin.spr
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.UserRole'
 grails.plugin.springsecurity.authority.className = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.Role'
 
+/*
+    Disable security filter for approval caching/uncaching for testing purposes only.
+*/
+grails.plugin.springsecurity.filterChain.chainMap = [
+        '/oauth/cache_approvals': 'none',
+        '/oauth/uncache_approvals': 'none',
+        '/**': 'JOINED_FILTERS',
+]
+
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-    '/oauth/authorize.dispatch':      ['IS_AUTHENTICATED_REMEMBERED'],
-    '/oauth/token.dispatch':          ['IS_AUTHENTICATED_REMEMBERED'],
-	'/':                              ['permitAll'],
-	'/index':                         ['permitAll'],
-	'/index.gsp':                     ['permitAll'],
-	'/**/js/**':                      ['permitAll'],
-	'/**/css/**':                     ['permitAll'],
-	'/**/images/**':                  ['permitAll'],
-	'/**/favicon.ico':                ['permitAll'],
-    '/secured/client':                ['ROLE_CLIENT']
+        '/oauth/authorize.dispatch':            ['IS_AUTHENTICATED_FULLY'],
+        '/oauth/token.dispatch':                ['IS_AUTHENTICATED_FULLY'],
+        '/oauth/users/([^/].*?)/tokens/.*':     ["#oauth2.clientHasRole('ROLE_CLIENT') and (hasRole('ROLE_USER') or #oauth2.isClient()) and #oauth2.hasScope('write')"],
+        '/oauth/users/.*':                      ["#oauth2.clientHasRole('ROLE_CLIENT') and (hasRole('ROLE_USER') or #oauth2.isClient()) and #oauth2.hasScope('read')"],
+        '/oauth/clients/.*':                    ["#oauth2.clientHasRole('ROLE_CLIENT') and #oauth2.isClient() and #oauth2.hasScope('read')"],
+        '/photos':                              ['ROLE_USER', 'SCOPE_READ'],
+        '/photos/trusted/**':                   ['ROLE_CLIENT', 'SCOPE_TRUST'],
+        '/photos/user/**':                      ['ROLE_USER', 'SCOPE_TRUST'],
+        '/photos/**':                           ['ROLE_USER', 'SCOPE_READ'],
+        '/me/**':                               ['ROLE_USER', 'SCOPE_READ'],
+        '/oauth/**':                            ['ROLE_USER'],
+        '/**':                                  ['permitAll'],
+        '/index':                               ['permitAll'],
+        '/index.gsp':                           ['permitAll'],
+        '/**/js/**':                            ['permitAll'],
+        '/**/css/**':                           ['permitAll'],
+        '/**/images/**':                        ['permitAll'],
+        '/**/favicon.ico':                      ['permitAll'],
 ]
 
 grails.plugin.springsecurity.providerNames = [
@@ -115,4 +132,9 @@ grails.plugin.springsecurity.providerNames = [
         'anonymousAuthenticationProvider',
         'rememberMeAuthenticationProvider',
         'clientCredentialsAuthenticationProvider'
+]
+
+grails.plugin.springsecurity.voterNames = [
+        'authenticatedVoter', 'roleVoter',
+        'webExpressionVoter', 'scopeVoter'
 ]
