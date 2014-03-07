@@ -1,4 +1,4 @@
-package test.oauth2.provider
+package grails.plugin.springsecurity.oauthprovider.samples.sparklr
 
 import org.apache.commons.lang.builder.HashCodeBuilder
 

@@ -93,9 +93,9 @@ log4j = {
 }
 
 // Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'test.oauth2.provider.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'test.oauth2.provider.UserRole'
-grails.plugin.springsecurity.authority.className = 'test.oauth2.provider.Role'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.UserRole'
+grails.plugin.springsecurity.authority.className = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.Role'
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
     '/oauth/authorize.dispatch':      ['IS_AUTHENTICATED_REMEMBERED'],

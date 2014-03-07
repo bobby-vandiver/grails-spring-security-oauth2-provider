@@ -1,4 +1,4 @@
-package test.oauth2.provider
+package grails.plugin.springsecurity.oauthprovider.samples.sparklr
 
 class Role {
 

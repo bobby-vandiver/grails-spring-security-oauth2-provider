@@ -1,7 +1,7 @@
 import grails.plugin.springsecurity.oauthprovider.GormOAuth2Client
-import test.oauth2.provider.Role
-import test.oauth2.provider.User
-import test.oauth2.provider.UserRole
+import grails.plugin.springsecurity.oauthprovider.samples.sparklr.Role
+import grails.plugin.springsecurity.oauthprovider.samples.sparklr.User
+import grails.plugin.springsecurity.oauthprovider.samples.sparklr.UserRole
 
 class BootStrap {
 
