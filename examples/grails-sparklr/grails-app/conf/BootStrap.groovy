@@ -6,16 +6,29 @@ import grails.plugin.springsecurity.oauthprovider.samples.sparklr.UserRole
 class BootStrap {
 
     def init = { servletContext ->
-        Role role = new Role(authority: 'ROLE_USER').save(flush: true)
-        User user = new User(
-                username: 'bob',
-                password: 'pass',
+
+        Role roleUser = new Role(authority: 'ROLE_USER').save(flush: true)
+
+        User marissa = new User(
+                username: 'marissa',
+                password: 'koala',
                 enabled: true,
                 accountExpired: false,
                 accountLocked: false,
                 passwordExpired: false
         ).save(flush:true)
-        UserRole.create(user, role, true)
+
+        User paul = new User(
+                username: 'paul',
+                password: 'emu',
+                enabled: true,
+                accountExpired: false,
+                accountLocked: false,
+                passwordExpired: false
+        ).save(flush:true)
+
+        UserRole.create(marissa, roleUser, true)
+        UserRole.create(paul, roleUser, true)
 
         new GormOAuth2Client(
                 clientId: 'my-trusted-client',
