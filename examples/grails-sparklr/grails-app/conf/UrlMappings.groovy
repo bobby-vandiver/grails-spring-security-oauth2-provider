@@ -9,6 +9,12 @@ class UrlMappings {
 
         "/me"(controller: 'photoServiceUser', action: 'getPhotoServiceUser')
 
+        "/photos/$photoId"(controller: 'photo', action: 'getPhoto')
+        "/photos"(controller: 'photo', action: 'getPhotos')
+
+        "/photos/trusted/message"(controller: 'photo', action: 'getTrustedClientMessage')
+        "/photos/user/message"(controller: 'photo', action: 'getTrustedUserMessage')
+
 		"/"(view:"/index")
 		"500"(view:'/error')
 	}

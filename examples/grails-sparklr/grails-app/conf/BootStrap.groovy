@@ -1,4 +1,5 @@
 import grails.plugin.springsecurity.oauthprovider.GormOAuth2Client
+import grails.plugin.springsecurity.oauthprovider.samples.sparklr.PhotoInfo
 import grails.plugin.springsecurity.oauthprovider.samples.sparklr.Role
 import grails.plugin.springsecurity.oauthprovider.samples.sparklr.User
 import grails.plugin.springsecurity.oauthprovider.samples.sparklr.UserRole
@@ -6,6 +7,8 @@ import grails.plugin.springsecurity.oauthprovider.samples.sparklr.UserRole
 class BootStrap {
 
     def init = { servletContext ->
+
+        /* Register user specific roles and users */
 
         Role roleUser = new Role(authority: 'ROLE_USER').save(flush: true)
 
@@ -29,6 +32,8 @@ class BootStrap {
 
         UserRole.create(marissa, roleUser, true)
         UserRole.create(paul, roleUser, true)
+
+        /* OAuth2 client registration */
 
         new GormOAuth2Client(
                 clientId: 'my-trusted-client',
@@ -90,6 +95,23 @@ class BootStrap {
                 authorities: ['ROLE_CLIENT'],
                 scopes: ['read', 'write']
         ).save(flush: true)
+
+
+        /* Populate database with photo resources */
+
+        [1, 3, 5].each { id ->
+            registerPhotoInfo(id, "photo${id}.jpg", 'marissa', "grails/plugin/springsecurity/oauthprovider/samples/sparklr/resources/photo${id}.jpg")
+        }
+
+        [2, 4, 6].each { id ->
+            registerPhotoInfo(id, "photo${id}.jpg", 'paul', "grails/plugin/springsecurity/oauthprovider/samples/sparklr/resources/photo${id}.jpg")
+        }
+    }
+
+    private void registerPhotoInfo(Long id, String name, String userId, String resourceURL) {
+        def photoInfo = new PhotoInfo(name: name, userId: userId, resourceURL: resourceURL)
+        photoInfo.id = id
+        photoInfo.save(flush: true)
     }
 
     def destroy = {
