@@ -1,11 +1,12 @@
 class UrlMappings {
 
 	static mappings = {
-		"/$controller/$action?/$id?"{
-			constraints {
-				// apply constraints here
-			}
-		}
+
+        "/oauth/users/$user/tokens"(controller: 'admin', action: 'listTokensForUser')
+        "/oauth/users/$user/tokens/$token"(controller: 'admin', action: 'revokeToken')
+
+        "/oauth/clients/$client/tokens"(controller: 'admin', action: 'listTokensForClient')
+
 
 		"/"(view:"/index")
 		"500"(view:'/error')
