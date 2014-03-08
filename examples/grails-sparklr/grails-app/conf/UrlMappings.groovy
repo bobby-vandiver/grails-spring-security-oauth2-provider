@@ -7,6 +7,7 @@ class UrlMappings {
 
         "/oauth/clients/$client/tokens"(controller: 'admin', action: 'listTokensForClient')
 
+        "/me"(controller: 'photoServiceUser', action: 'getPhotoServiceUser')
 
 		"/"(view:"/index")
 		"500"(view:'/error')
