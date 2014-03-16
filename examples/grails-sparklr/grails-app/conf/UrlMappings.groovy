@@ -2,6 +2,9 @@ class UrlMappings {
 
 	static mappings = {
 
+        "/login/$action?"(controller: 'login')
+        "/logout/$action?"(controller: 'logout')
+
         "/oauth/users/$user/tokens"(controller: 'admin', action: 'listTokensForUser')
         "/oauth/users/$user/tokens/$token"(controller: 'admin', action: 'revokeToken')
 

@@ -77,7 +77,9 @@ log4j = {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
     //}
 
-    debug  'grails.plugin.springsecurity.oauthprovider'
+    debug  'grails.plugin.springsecurity.oauthprovider',
+           'grails.plugin.springsecurity',
+           'org.springframework.security'
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
            'org.codehaus.groovy.grails.web.pages',          // GSP
@@ -97,12 +99,15 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'grails.plugin.spr
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.UserRole'
 grails.plugin.springsecurity.authority.className = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.Role'
 
-/*
-    Disable security filter for approval caching/uncaching for testing purposes only.
-*/
+// For consistency with Sparklr's method of reporting authentication & authorization errors on the login.jsp
+grails.plugin.springsecurity.failureHandler.defaultFailureUrl = '/login/authfail?authentication_error=true'
+grails.plugin.springsecurity.adh.errorPage = '/login/authfail?authorization_error=true'
+
+// Disable security filter for approval caching/uncaching for testing purposes only.
 grails.plugin.springsecurity.filterChain.chainMap = [
         '/oauth/cache_approvals': 'none',
         '/oauth/uncache_approvals': 'none',
+        '/oauth/token': 'JOINED_FILTERS, -securityContextPersistenceFilter',
         '/**': 'JOINED_FILTERS',
 ]
 

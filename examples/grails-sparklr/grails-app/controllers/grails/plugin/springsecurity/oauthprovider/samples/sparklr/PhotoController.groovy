@@ -7,7 +7,7 @@ class PhotoController {
     def springSecurityService
     def photoService
 
-    @Secured(["hasRole('ROLE_USER') and #oauth2.hasScope('read')"])
+    @Secured(["hasRole('ROLE_USER') or #oauth2.hasScope('read')"])
     def getPhoto(Long photoId) {
         def photo = photoService.loadPhoto(photoId)
 
@@ -24,7 +24,7 @@ class PhotoController {
         }
     }
 
-    @Secured(["hasRole('ROLE_USER') and #oauth2.hasScope('read')"])
+    @Secured(["hasRole('ROLE_USER') or #oauth2.hasScope('read')"])
     def getPhotos(String format, String callback) {
         def username = springSecurityService.currentUser.username
         def photos = photoService.getPhotosForCurrentUser(username)
