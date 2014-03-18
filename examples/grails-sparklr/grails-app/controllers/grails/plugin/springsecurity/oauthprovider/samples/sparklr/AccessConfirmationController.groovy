@@ -9,8 +9,6 @@ class AccessConfirmationController {
     ClientDetailsService clientDetailsService
     private static final String AUTHORIZATION_REQUEST_KEY = 'authorizationRequest'
 
-    WebResponseExceptionTranslator webResponseExceptionTranslator
-
     def getAccessConfirmation() {
         def clientAuth = session.getAttribute(AUTHORIZATION_REQUEST_KEY) as AuthorizationRequest
         session.removeAttribute(AUTHORIZATION_REQUEST_KEY)
@@ -20,7 +18,7 @@ class AccessConfirmationController {
     }
 
     def handleError() {
-        def e = webResponseExceptionTranslator.translate(request.exception).body
+        def e = request.exception.cause.cause
         render(view: '/oauth/oauth_error', model: [message: 'There was a problem with the OAuth2 protocol', error: e])
     }
 }
