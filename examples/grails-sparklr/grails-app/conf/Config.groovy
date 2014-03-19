@@ -107,7 +107,6 @@ grails.plugin.springsecurity.adh.errorPage = '/login/authfail?authorization_erro
 grails.plugin.springsecurity.filterChain.chainMap = [
         '/oauth/cache_approvals': 'none',
         '/oauth/uncache_approvals': 'none',
-        '/oauth/token': 'JOINED_FILTERS, -securityContextPersistenceFilter',
         '/**': 'JOINED_FILTERS',
 ]
 
