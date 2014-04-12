@@ -1,8 +1,8 @@
-import grails.plugin.springsecurity.oauthprovider.GormOAuth2Client
 import grails.plugin.springsecurity.oauthprovider.samples.sparklr.PhotoInfo
 import grails.plugin.springsecurity.oauthprovider.samples.sparklr.Role
 import grails.plugin.springsecurity.oauthprovider.samples.sparklr.User
 import grails.plugin.springsecurity.oauthprovider.samples.sparklr.UserRole
+import grails.plugin.springsecurity.oauthprovider.samples.sparklr.oauth2.Client
 
 class BootStrap {
 
@@ -35,7 +35,7 @@ class BootStrap {
 
         /* OAuth2 client registration */
 
-        new GormOAuth2Client(
+        new Client(
                 clientId: 'my-trusted-client',
                 authorizedGrantTypes: ['password', 'authorization_code', 'refresh_token', 'implicit'],
                 authorities: ['ROLE_CLIENT', 'ROLE_TRUSTED_CLIENT'],
@@ -43,14 +43,14 @@ class BootStrap {
                 accessTokenValiditySeconds: 60
         ).save(flush: true)
 
-        new GormOAuth2Client(
+        new Client(
                 clientId: 'my-trusted-client-with-secret',
                 clientSecret: 'somesecret',
                 authorizedGrantTypes: ['password', 'authorization_code', 'refresh_token', 'implicit'],
                 authorities: ['ROLE_CLIENT', 'ROLE_TRUSTED_CLIENT'],
         ).save(flush: true)
 
-        new GormOAuth2Client(
+        new Client(
                 clientId: 'my-client-with-secret',
                 clientSecret: 'secret',
                 authorizedGrantTypes: ['client_credentials'],
@@ -58,20 +58,20 @@ class BootStrap {
                 scopes: ['read']
         ).save(flush: true)
 
-        new GormOAuth2Client(
+        new Client(
                 clientId: 'my-less-trusted-client',
                 authorizedGrantTypes: ['authorization_code', 'implicit'],
                 authorities: ['ROLE_CLIENT']
         ).save(flush: true)
 
-        new GormOAuth2Client(
+        new Client(
                 clientId: 'my-less-trusted-autoapprove-client',
                 authorizedGrantTypes: ['implicit'],
                 authorities: ['ROLE_CLIENT'],
                 scopes: ['read', 'write', 'trust']
         ).save(flush: true)
 
-        new GormOAuth2Client(
+        new Client(
                 clientId: 'my-client-with-registered-redirect',
                 authorizedGrantTypes: ['authorization_code', 'client_credentials'],
                 authorities: ['ROLE_CLIENT'],
@@ -79,7 +79,7 @@ class BootStrap {
                 scopes: ['read', 'trust']
         ).save(flush: true)
 
-        new GormOAuth2Client(
+        new Client(
                 clientId: 'my-untrusted-client-with-registered-redirect',
                 authorizedGrantTypes: ['authorization_code'],
                 authorities: ['ROLE_CLIENT'],
@@ -87,7 +87,7 @@ class BootStrap {
                 scopes: ['read']
         ).save(flush: true)
 
-        new GormOAuth2Client(
+        new Client(
                 clientId: 'tonr',
                 clientSecret: 'secret',
                 resourceIds: ['sparklr'],

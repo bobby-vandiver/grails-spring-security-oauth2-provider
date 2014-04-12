@@ -128,3 +128,11 @@ grails.plugin.springsecurity.providerNames = [
         'rememberMeAuthenticationProvider',
         'clientCredentialsAuthenticationProvider'
 ]
+
+
+// Added by the Spring Security OAuth2 Provider plugin:
+grails.plugin.springsecurity.oauthProvider.clientLookup.className = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.oauth2.Client'
+grails.plugin.springsecurity.oauthProvider.authorizationCodeLookup.className = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.oauth2.AuthorizationCode'
+grails.plugin.springsecurity.oauthProvider.accessTokenLookup.className = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.oauth2.AccessToken'
+grails.plugin.springsecurity.oauthProvider.refreshTokenLookup.className = 'grails.plugin.springsecurity.oauthprovider.samples.sparklr.oauth2.RefreshToken'
+
